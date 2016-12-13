@@ -14,4 +14,7 @@
             = f.password_field :password, placeholder: "Password", class: "form-control"
           .form-group
             = f.password_field :password_confirmation, placeholder: "Password confirmation", class: "form-control"
-          = f.submit "Sign up", class: "btn btn-primary btn-block"
+          .form-group
+            = f.submit "Sign up", class: "btn btn-primary btn-block"
+          .form-group
+            = link_to "Sign in", signin_path, class: "auth-link"
