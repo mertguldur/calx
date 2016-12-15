@@ -1,0 +1,16 @@
+- if signed_in?
+  %nav.navbar.navbar-default{role: "navigation"}
+    .container
+      .row
+        .col-md-12
+          .navbar-header
+            %button.navbar-toggle{"data-target" => ".navbar-ex1-collapse", "data-toggle" => "collapse", type: "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            = link_to "CalX", root_path, :class => "navbar-brand"
+          .collapse.navbar-collapse.navbar-ex1-collapse
+            %ul.nav.navbar-nav.pull-right
+              %li
+                = link_to "Sign out", signout_path, method: :delete
