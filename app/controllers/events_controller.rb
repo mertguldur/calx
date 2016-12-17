@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   def index
     date = params[:date] || Date.today
-    @events = Event.where(start_time: date.beginning_of_day..date.end_of_day)
+    @events = Event.where(user_id: current_user.id).starts_on(date)
   end
 
   def new
@@ -21,11 +21,12 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find_by_id(params[:id])
-    redirect_to root_path unless @event
+    redirect_to root_path if @event.nil? || @event.user_id != current_user.id
   end
 
   def update
     @event = Event.find(params[:id])
+    redirect_to root_path if @event.user_id != current_user.id
     @event.attributes = event_params
     flash.now[:success] = 'Changes saved successfully' if @event.save
     render 'show'
@@ -39,6 +40,7 @@ class EventsController < ApplicationController
     permitted.delete(:start_date)
     permitted[:end_time] = combine_date_and_time(permitted[:end_date], permitted[:end_time])
     permitted.delete(:end_date)
+    permitted[:user_id] = current_user.id
     permitted
   end
 
