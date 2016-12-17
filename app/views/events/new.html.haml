@@ -1,0 +1,41 @@
+.row
+  .col-md-6.col-md-offset-3
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Create a new event
+      .panel-body
+        = form_tag(create_event_path, method: :post) do
+          - if @event.errors.any?
+            .alert.alert-danger
+              = @event.errors.full_messages.first
+          .list-group
+            .list-group-item
+              .row
+                .col-md-3
+                  Title
+                .col-md-9
+                  = text_field_tag :title, nil, class: "form-control"
+            .list-group-item
+              .row
+                .col-md-3
+                  Starts
+                .col-md-6
+                  = date_field_tag :start_date, Date.today, class: "form-control"
+                .col-md-3
+                  = select_tag :start_time, options_for_select(event_times), class: "form-control"
+            .list-group-item
+              .row
+                .col-md-3
+                  Ends
+                .col-md-6
+                  = date_field_tag :end_date, Date.today, class: "form-control"
+                .col-md-3
+                  = select_tag :end_time, options_for_select(event_times), class: "form-control"
+            .list-group-item
+              .row
+                .col-md-3
+                  Notes
+                .col-md-9
+                  = text_area_tag :notes, nil, class: "form-control"
+          .form-group
+            = submit_tag "Create", class: "btn btn-primary btn-block"
