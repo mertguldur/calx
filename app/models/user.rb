@@ -7,7 +7,8 @@ class User < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  validates_length_of :password, minimum: 6, allow_blank: true
+  validates_presence_of :password, on: :create
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64

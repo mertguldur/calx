@@ -13,4 +13,6 @@
           .collapse.navbar-collapse.navbar-ex1-collapse
             %ul.nav.navbar-nav.pull-right
               %li
+                = link_to "Account", show_user_path(current_user)
+              %li
                 = link_to "Sign out", signout_path, method: :delete
