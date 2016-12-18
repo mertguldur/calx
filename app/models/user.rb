@@ -10,6 +10,8 @@ class User < ApplicationRecord
   validates_length_of :password, minimum: 6, allow_blank: true
   validates_presence_of :password, on: :create
 
+  belongs_to :time_zone
+
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end

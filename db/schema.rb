@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217102328) do
+ActiveRecord::Schema.define(version: 20161218015819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,13 +24,20 @@ ActiveRecord::Schema.define(version: 20161217102328) do
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
+  create_table "time_zones", force: :cascade do |t|
+    t.text "time_zone"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text     "email"
     t.text     "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.text     "remember_digest"
+    t.integer  "time_zone_id"
+    t.index ["time_zone_id"], name: "index_users_on_time_zone_id", using: :btree
   end
 
   add_foreign_key "events", "users"
+  add_foreign_key "users", "time_zones"
 end

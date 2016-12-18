@@ -36,6 +36,13 @@
             .list-group-item
               .row
                 .col-md-3
+                  Time zone
+                .col-md-9
+                  = select_tag :time_zone, time_zone_options_for_select(@user.time_zone.time_zone), class: "form-control"
+          .list-group
+            .list-group-item
+              .row
+                .col-md-3
                   Current password to save changes
                 .col-md-9
                   = password_field_tag :current_password, nil, class: "form-control"
