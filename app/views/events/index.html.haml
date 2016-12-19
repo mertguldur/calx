@@ -1,12 +1,24 @@
 .row
   .col-md-4.col-md-offset-4
-    = "Today's events #{Date.current}"
+    .month-and-year
+      = month_and_year_of_date(@today)
+    .weekdays
+      - weekdays_of_date(@today).each do |date|
+        .day
+          .day-name
+            = abbr_day_name(date)
+          .day-number
+            %span.weekday
+              = date.day
+          - if date == @today
+            .orange-color-bar
+.row
+  .col-md-4.col-md-offset-4
+    .add-event-button
+      = link_to @events.any? ? "Add another event" : "Add first event", new_event_path, class: "btn btn-default"
 .row
   .col-md-4.col-md-offset-4
     .list-group
       - @events.each do |event|
         .list-group-item
           = link_to "#{format_event_time(event.start_time)} - #{event.title}", show_event_path(event)
-.row
-  .col-md-4.col-md-offset-4
-    = link_to "Add another event", new_event_path, class: "btn btn-default"

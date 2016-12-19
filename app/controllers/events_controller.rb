@@ -4,8 +4,8 @@ class EventsController < ApplicationController
   around_action :set_time_zone, if: :current_user
 
   def index
-    date = params[:date] || Date.current
-    @events = Event.where(user_id: current_user.id).starts_on(date)
+    @today = Date.current
+    @events = Event.where(user_id: current_user.id).starts_on(params[:date] || @today)
   end
 
   def new

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   delete '/signout', to: 'sessions#delete'
 
   get '/signup',    to: 'users#new'
+  post '/users',    to: 'users#create', as: 'create_user'
   get '/users/:id', to: 'users#show',   as: 'show_user'
   put '/users/:id', to: 'users#update', as: 'update_user'
   resources :users

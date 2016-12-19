@@ -10,17 +10,19 @@
       .panel-heading
         %h3.panel-title Sign up
       .panel-body
-        = form_for(@user) do |f|
+        = form_tag(create_user_path, method: :post) do |f|
           - if @user.errors.any?
             .alert.alert-danger
               = @user.errors.full_messages.first
           .form-group
-            = f.email_field :email, placeholder: "Email", class: "form-control"
+            = email_field_tag :email, nil, placeholder: "Email", class: "form-control"
           .form-group
-            = f.password_field :password, placeholder: "Password", class: "form-control"
+            = password_field_tag :password, nil, placeholder: "Password", class: "form-control"
           .form-group
-            = f.password_field :password_confirmation, placeholder: "Password confirmation", class: "form-control"
+            = password_field_tag :password_confirmation, nil, placeholder: "Password confirmation", class: "form-control"
           .form-group
-            = f.submit "Sign up", class: "btn btn-primary btn-block"
+            = select_tag :time_zone, time_zone_options_for_select, class: "form-control"
+          .form-group
+            = submit_tag "Sign up", class: "btn btn-primary btn-block"
           .form-group
             = link_to "Sign in", signin_path, class: "auth-link"
