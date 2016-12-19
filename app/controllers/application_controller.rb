@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     redirect_to signin_path unless signed_in?
   end
+
+  def set_time_zone
+    Time.use_zone(current_user.time_zone.time_zone) { yield }
+  end
 end

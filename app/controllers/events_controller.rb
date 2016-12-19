@@ -1,8 +1,10 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
 
+  around_action :set_time_zone, if: :current_user
+
   def index
-    date = params[:date] || Date.today
+    date = params[:date] || Date.current
     @events = Event.where(user_id: current_user.id).starts_on(date)
   end
 
@@ -36,17 +38,13 @@ class EventsController < ApplicationController
 
   def event_params
     permitted = params.permit(:title, :start_date, :start_time, :end_date, :end_time, :notes)
-    permitted[:start_time] = combine_date_and_time(permitted[:start_date], permitted[:start_time])
+
+    permitted[:start_time] = Time.zone.parse("#{permitted[:start_date]}  #{permitted[:start_time]}")
     permitted.delete(:start_date)
-    permitted[:end_time] = combine_date_and_time(permitted[:end_date], permitted[:end_time])
+    permitted[:end_time] = Time.zone.parse("#{permitted[:end_date]} #{permitted[:end_time]}")
     permitted.delete(:end_date)
+
     permitted[:user_id] = current_user.id
     permitted
-  end
-
-  def combine_date_and_time(date, time)
-    date = Date.parse(date)
-    time = Time.parse(time)
-    Time.new(date.year, date.month, date.day, time.hour, time.min)
   end
 end
