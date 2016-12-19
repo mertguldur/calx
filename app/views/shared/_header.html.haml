@@ -1,5 +1,5 @@
 - if signed_in?
-  %nav.navbar.navbar-default{role: "navigation"}
+  %nav.navbar.navbar-inverse{role: "navigation"}
     .container
       .row
         .col-md-12
@@ -9,7 +9,7 @@
               %span.icon-bar
               %span.icon-bar
               %span.icon-bar
-            = link_to "CalX", root_path, :class => "navbar-brand"
+            = link_to "CalX", root_path, class: "navbar-brand navbar-brand-emphasized"
           .collapse.navbar-collapse.navbar-ex1-collapse
             %ul.nav.navbar-nav.pull-right
               %li
