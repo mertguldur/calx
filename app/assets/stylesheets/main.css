@@ -71,3 +71,13 @@
   text-align: center;
   margin-bottom: 20px;
 }
+.back-to-calendar {
+  margin-bottom: 20px;
+}
+#back-to-calendar-link {
+  text-decoration: none;
+  color: #cfd2da;
+}
+#back-to-calendar-link:hover {
+  color: white;
+}
