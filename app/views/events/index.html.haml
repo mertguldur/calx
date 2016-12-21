@@ -9,6 +9,9 @@
           %span.input-group-addon
             %span.icon.icon-calendar
           %input.form-control{"data-provide" => "datepicker", :style => "width: 200px;", :type => "text", :value => @date.strftime("%m/%d/%Y"), id: 'calendar-datepicker-input'}
+    .hr-divider
+      %h3.hr-divider-content.hr-divider-heading
+        Week
     .calendar-month-and-year
       = month_and_year_of_date(@date)
     .calendar-weekdays
@@ -26,6 +29,9 @@
               .orange-color-bar
       %a#calendar-week-arrow{href: events_path(date: @date.next_week)}
         %span.icon.icon-arrow-bold-right
+    .hr-divider
+      %h3.hr-divider-content.hr-divider-heading
+        To do
     .add-event-button
       = link_to @events.any? ? "Add another event" : "Add first event", new_event_path, class: "btn btn-primary-outline"
 .row
