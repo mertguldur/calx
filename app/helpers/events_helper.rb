@@ -12,6 +12,16 @@ module EventsHelper
     times
   end
 
+  def default_event_start_time(event)
+    return format_event_time(event.start_time) if event.start_time
+    possible_event_times.first
+  end
+
+  def default_event_end_time(event)
+    return format_event_time(event.end_time) if event.end_time
+    possible_event_times.second
+  end
+
   def format_event_time(time)
     time.strftime("%I:%M%P")
   end

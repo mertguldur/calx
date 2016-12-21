@@ -20,17 +20,17 @@
                 .col-md-3
                   Starts
                 .col-md-6
-                  = date_field_tag :start_date, Date.current, class: "form-control"
+                  = date_field_tag :start_date, @event.start_date || @start_date, class: "form-control"
                 .col-md-3
-                  = select_tag :start_time, options_for_select(possible_event_times), class: "form-control"
+                  = select_tag :start_time, options_for_select(possible_event_times, default_event_start_time(@event)), class: "form-control"
             .list-group-item
               .row
                 .col-md-3
                   Ends
                 .col-md-6
-                  = date_field_tag :end_date, Date.current, class: "form-control"
+                  = date_field_tag :end_date, @event.end_date || @end_date, class: "form-control"
                 .col-md-3
-                  = select_tag :end_time, options_for_select(possible_event_times), class: "form-control"
+                  = select_tag :end_time, options_for_select(possible_event_times, default_event_end_time(@event)), class: "form-control"
             .list-group-item
               .row
                 .col-md-3

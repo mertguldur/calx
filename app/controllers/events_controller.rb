@@ -10,13 +10,15 @@ class EventsController < ApplicationController
   end
 
   def new
+    @start_date = params[:date] || Date.current
+    @end_date = @start_date
     @event = Event.new
   end
 
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to show_event_path(@event)
+      redirect_to events_path(date: @event.start_date)
     else
       render 'new'
     end

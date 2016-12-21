@@ -33,7 +33,7 @@
       %h3.hr-divider-content.hr-divider-heading
         To do
     .add-event-button
-      = link_to @events.any? ? "Add another event" : "Add first event", new_event_path, class: "btn btn-primary-outline"
+      = link_to @events.any? ? "Add another event" : "Add first event", new_event_path(date: @date), class: "btn btn-primary-outline"
 .row
   .col-md-4.col-md-offset-4
     .list-group
