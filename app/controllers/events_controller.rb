@@ -5,7 +5,8 @@ class EventsController < ApplicationController
 
   def index
     @today = Date.current
-    @events = Event.where(user_id: current_user.id).starts_on(params[:date] || @today)
+    @date = params[:date]&.to_date || @today
+    @events = Event.where(user_id: current_user.id).starts_on(@date)
   end
 
   def new
