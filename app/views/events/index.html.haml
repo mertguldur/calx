@@ -38,5 +38,10 @@
   .col-md-4.col-md-offset-4
     .list-group
       - @events.each do |event|
-        .list-group-item
-          = link_to "#{format_event_time(event.start_time)} - #{event.title}", show_event_path(event)
+        %a.list-group-item{href: show_event_path(event)}
+          - if event == @upcoming_event
+            .list-group-progress{style: 'width: 100%;'}
+          %span.pull-right
+            = event.title
+          %span.icon.icon-calendar
+          = format_event_time(event.start_time)
