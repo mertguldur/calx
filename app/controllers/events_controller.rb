@@ -42,9 +42,12 @@ class EventsController < ApplicationController
   def event_params
     permitted = params.permit(:title, :start_date, :start_time, :end_date, :end_time, :notes)
 
-    permitted[:start_time] = Time.zone.parse("#{permitted[:start_date]}  #{permitted[:start_time]}")
+    start_date = Date.strptime(permitted[:start_date], "%m/%d/%Y").to_s
+    permitted[:start_time] = Time.zone.parse("#{start_date}  #{permitted[:start_time]}")
     permitted.delete(:start_date)
-    permitted[:end_time] = Time.zone.parse("#{permitted[:end_date]} #{permitted[:end_time]}")
+
+    end_date = Date.strptime(permitted[:end_date], "%m/%d/%Y").to_s
+    permitted[:end_time] = Time.zone.parse("#{end_date} #{permitted[:end_time]}")
     permitted.delete(:end_date)
 
     permitted[:user_id] = current_user.id

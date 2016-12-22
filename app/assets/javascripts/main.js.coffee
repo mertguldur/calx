@@ -7,3 +7,6 @@ $(document).on 'turbolinks:load', ->
     date = year + '-' + month + '-' + day
     $("#hidden-date-change-button").attr("href", "/events?date=" + date)
     $("#hidden-date-change-button")[0].click()
+
+  $(".event-datepicker-input").datepicker().on 'changeDate', (e) ->
+    $(this).datepicker('hide')

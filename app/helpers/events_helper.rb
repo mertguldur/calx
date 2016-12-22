@@ -26,6 +26,10 @@ module EventsHelper
     time.strftime("%I:%M%P")
   end
 
+  def event_form_date(event_date, date = nil)
+    (event_date || date.to_date).strftime("%m/%d/%Y")
+  end
+
   def weekdays_of_date(date)
     (date.beginning_of_week..date.end_of_week).to_a
   end
