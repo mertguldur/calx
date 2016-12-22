@@ -1,5 +1,9 @@
 .row
   .col-md-6.col-md-offset-3
+    .back-to-calendar
+      %a{href: events_path(date: @event.start_date), id: 'back-to-calendar-link'}
+        %span.icon.icon-arrow-bold-left
+        Back to calendar
     = form_tag(update_event_path, method: :put) do
       - if flash[:success]
         .alert.alert-success
