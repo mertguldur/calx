@@ -41,6 +41,13 @@ class EventsController < ApplicationController
     render 'show'
   end
 
+  def delete
+    @event = Event.find(params[:id])
+    redirect_to root_path if @event.user_id != current_user.id
+    @event.delete
+    redirect_to events_path(date: @event.start_date)
+  end
+
   private
 
   def event_params
