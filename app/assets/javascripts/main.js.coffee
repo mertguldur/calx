@@ -10,3 +10,15 @@ $(document).on 'turbolinks:load', ->
 
   $(".event-datepicker-input").datepicker().on 'changeDate', (e) ->
     $(this).datepicker('hide')
+
+  $("#specific-time-radio").click ->
+    $("#event-start-time-dropdown").attr('disabled', false)
+    $("#event-end-time-dropdown").attr('disabled', false)
+
+  $("#any-time-radio").click ->
+    $("#event-start-time-dropdown").attr('disabled', true)
+    $("#event-end-time-dropdown").attr('disabled', true)
+
+  $("#all-day-radio").click ->
+    $("#event-start-time-dropdown").attr('disabled', true)
+    $("#event-end-time-dropdown").attr('disabled', true)

@@ -12,8 +12,9 @@ class EventsController < ApplicationController
   end
 
   def new
-    @start_date = params[:date] || Date.current
-    @end_date = @start_date
+    @now = Time.current
+    date = params[:date] || now.to_date
+    @start_date, @end_date = date, date
     @event = Event.new
   end
 

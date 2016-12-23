@@ -12,14 +12,28 @@ module EventsHelper
     times
   end
 
-  def default_event_start_time(event)
-    return format_event_time(event.start_time) if event.start_time
-    possible_event_times.first
+  def upcoming_event_times(now)
+    possible_event_times.select do |event_time|
+      now < Time.zone.parse("#{now.to_date} #{event_time}")
+    end
   end
 
-  def default_event_end_time(event)
+  def default_event_start_time(event, now)
+    return format_event_time(event.start_time) if event.start_time
+    upcoming_event_times(now).first
+  end
+
+  def default_event_end_time(event, now)
     return format_event_time(event.end_time) if event.end_time
-    possible_event_times.second
+    upcoming_event_times(now).second
+  end
+
+  def event_start_time_options(event)
+    options_for_select(possible_event_times, format_event_time(event.start_time))
+  end
+
+  def event_end_time_options(event)
+    options_for_select(possible_event_times, format_event_time(event.end_time))
   end
 
   def format_event_time(time)

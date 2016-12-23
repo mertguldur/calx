@@ -22,17 +22,17 @@
             .col-md-9
               .radio-inline.custom-control.custom-radio
                 %label
-                  = radio_button_tag :event_type, :specific_time, @event.event_type.nil? || @event.specific_time?, id: 'radio1'
+                  = radio_button_tag :event_type, :specific_time, @event.event_type.nil? || @event.specific_time?, id: 'specific-time-radio'
                   %span.custom-control-indicator
                   At a specific time
               .radio-inline.custom-control.custom-radio
                 %label
-                  = radio_button_tag :event_type, :any_time, @event.any_time?, id: 'radio2'
+                  = radio_button_tag :event_type, :any_time, @event.any_time?, id: 'any-time-radio'
                   %span.custom-control-indicator
                   Any time
               .radio-inline.custom-control.custom-radio
                 %label
-                  = radio_button_tag :event_type, :all_day, @event.all_day?, id: 'radio3'
+                  = radio_button_tag :event_type, :all_day, @event.all_day?, id: 'all-day-radio'
                   %span.custom-control-indicator
                   All day
         .list-group-item
@@ -42,7 +42,7 @@
             .col-md-5
               = text_field_tag :start_date, event_form_date(@event.start_date, @start_date), class: "form-control event-datepicker-input", 'data-provide' => 'datepicker'
             .col-md-4
-              = select_tag :start_time, options_for_select(possible_event_times, default_event_start_time(@event)), class: "form-control"
+              = select_tag :start_time, options_for_select(possible_event_times, default_event_start_time(@event, @now)), class: "form-control", id: 'event-start-time-dropdown'
         .list-group-item
           .row
             .col-md-3
@@ -50,7 +50,7 @@
             .col-md-5
               = text_field_tag :end_date, event_form_date(@event.end_date, @end_date), class: "form-control event-datepicker-input", 'data-provide' => 'datepicker'
             .col-md-4
-              = select_tag :end_time, options_for_select(possible_event_times, default_event_end_time(@event)), class: "form-control"
+              = select_tag :end_time, options_for_select(possible_event_times, default_event_end_time(@event, @now)), class: "form-control", id: 'event-end-time-dropdown'
         .list-group-item
           .row
             .col-md-3
