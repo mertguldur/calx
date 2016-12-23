@@ -3,6 +3,8 @@ class Event < ApplicationRecord
 
   before_save :ensure_present_title
 
+  validate :chonological_start_and_end_times
+
   scope :starts_on, -> (date) { where(start_time: date.beginning_of_day..date.end_of_day) }
   scope :specific_time, -> { by_event_type('specific_time') }
   scope :any_time, -> { by_event_type('any_time') }
@@ -49,5 +51,9 @@ class Event < ApplicationRecord
 
   def ensure_present_title
     self.title = 'Untitled' if title.blank?
+  end
+
+  def chonological_start_and_end_times
+    errors.add(:base, "End time must be later than start time") if end_time <= start_time
   end
 end
