@@ -7,10 +7,8 @@ class EventsController < ApplicationController
     now = Time.current
     @today = now.to_date
     @date = params[:date]&.to_date || @today
-    @events = Event.where(user_id: current_user.id).starts_on(@date).order(:start_time)
-    @upcoming_event = @events.select do |event|
-      event.start_date == @today && event.start_time > now
-    end.first
+    @events = Event.list_for_date(@date, current_user)
+    @upcoming_event = Event.upcoming(@events, now)
   end
 
   def new

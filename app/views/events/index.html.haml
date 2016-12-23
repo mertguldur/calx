@@ -43,5 +43,12 @@
             .list-group-progress{style: 'width: 100%;'}
           %span.pull-right
             = event.title
-          %span.icon.icon-calendar
-          = format_event_time(event.start_time)
+          - if event.all_day?
+            %span.event-list-all-day
+              All day
+          - elsif event.any_time?
+            %span.event-list-any-time
+              Any time
+          - else
+            %span.icon.icon-calendar
+            = format_event_time(event.start_time)

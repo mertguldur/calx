@@ -81,3 +81,9 @@
 #back-to-calendar-link:hover {
   color: white;
 }
+.event-list-all-day {
+  color: #1bc98e;
+}
+.event-list-any-time {
+  color: #9f86ff;
+}
