@@ -25,6 +25,26 @@
         .list-group-item
           .row
             .col-md-3
+              When?
+            .col-md-9
+              .radio-inline.custom-control.custom-radio
+                %label
+                  = radio_button_tag :event_type, :specific_time, @event.event_type.nil? || @event.specific_time?, id: 'radio1'
+                  %span.custom-control-indicator
+                  At a specific time
+              .radio-inline.custom-control.custom-radio
+                %label
+                  = radio_button_tag :event_type, :any_time, @event.any_time?, id: 'radio2'
+                  %span.custom-control-indicator
+                  Any time
+              .radio-inline.custom-control.custom-radio
+                %label
+                  = radio_button_tag :event_type, :all_day, @event.all_day?, id: 'radio3'
+                  %span.custom-control-indicator
+                  All day
+        .list-group-item
+          .row
+            .col-md-3
               Starts
             .col-md-5
               = text_field_tag :start_date, event_form_date(@event.start_date), class: "form-control event-datepicker-input", 'data-provide' => 'datepicker'

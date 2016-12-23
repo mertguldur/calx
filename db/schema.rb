@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161218015819) do
+ActiveRecord::Schema.define(version: 20161222154949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "event_types", force: :cascade do |t|
+    t.text "event_type"
+  end
 
   create_table "events", force: :cascade do |t|
     t.text     "title"
@@ -21,6 +25,8 @@ ActiveRecord::Schema.define(version: 20161218015819) do
     t.datetime "end_time"
     t.text     "notes"
     t.integer  "user_id"
+    t.integer  "event_type_id"
+    t.index ["event_type_id"], name: "index_events_on_event_type_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
@@ -38,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161218015819) do
     t.index ["time_zone_id"], name: "index_users_on_time_zone_id", using: :btree
   end
 
+  add_foreign_key "events", "event_types"
   add_foreign_key "events", "users"
   add_foreign_key "users", "time_zones"
 end

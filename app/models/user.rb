@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  belongs_to :time_zone
+
   before_save { self.email = email.downcase }
   before_create :create_remember_digest
 
@@ -9,8 +11,6 @@ class User < ApplicationRecord
   has_secure_password
   validates_length_of :password, minimum: 6, allow_blank: true
   validates_presence_of :password, on: :create
-
-  belongs_to :time_zone
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64

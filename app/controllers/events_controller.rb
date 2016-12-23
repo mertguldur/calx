@@ -51,17 +51,27 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    permitted = params.permit(:title, :start_date, :start_time, :end_date, :end_time, :notes)
+    permitted = params.permit \
+      :title, :event_type, :start_date, :start_time, :end_date, :end_time, :notes
 
-    start_date = Date.strptime(permitted[:start_date], "%m/%d/%Y").to_s
-    permitted[:start_time] = Time.zone.parse("#{start_date}  #{permitted[:start_time]}")
+    if permitted[:event_type].in?(['any_time', 'all_day'])
+      permitted[:start_time], permitted[:end_time] = nil, nil
+    end
+    permitted[:start_time] = combine_date_and_time(permitted[:start_date], permitted[:start_time])
     permitted.delete(:start_date)
 
-    end_date = Date.strptime(permitted[:end_date], "%m/%d/%Y").to_s
-    permitted[:end_time] = Time.zone.parse("#{end_date} #{permitted[:end_time]}")
+    permitted[:end_time] = combine_date_and_time(permitted[:end_date], permitted[:end_time])
     permitted.delete(:end_date)
+
+    permitted[:event_type_id] = EventType.find_by_event_type(permitted[:event_type]).id
+    permitted.delete(:event_type)
 
     permitted[:user_id] = current_user.id
     permitted
+  end
+
+  def combine_date_and_time(date, time = nil)
+    date = Date.strptime(date, "%m/%d/%Y").to_s
+    Time.zone.parse("#{date} #{time}")
   end
 end
