@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :event_type
 
-  validates :title, presence: true
+  before_save :ensure_present_title
 
   scope :starts_on, -> (date) { where(start_time: date.beginning_of_day..date.end_of_day) }
 
@@ -23,5 +23,11 @@ class Event < ApplicationRecord
 
   def all_day?
     event_type&.event_type == 'all_day'
+  end
+
+  private
+
+  def ensure_present_title
+    self.title = 'Untitled' if title.blank?
   end
 end
