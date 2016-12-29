@@ -1,5 +1,17 @@
 .row
-  .col-md-6.col-md-offset-3
+  .col-md-2.col-md-offset-3
+    %ul.nav.nav-pills.nav-stacked
+      %li.nav-header
+        Settings
+      %li.active
+        = link_to show_user_path do
+          %span.icon.icon-briefcase
+          Account
+      %li
+        = link_to '#' do
+          %span.icon.icon-key
+          Apps
+  .col-md-4
     = form_tag(update_user_path, method: :put) do
       - if flash[:success]
         .alert.alert-success
@@ -9,38 +21,23 @@
           = @user.errors.full_messages.first
       .list-group
         .list-group-item
-          .row
-            .col-md-3
-              Email
-            .col-md-9
-              = text_field_tag :email, @user.email, class: "form-control"
+          = label_tag 'Email'
+          = text_field_tag :email, @user.email, class: "form-control"
       .list-group
         .list-group-item
-          .row
-            .col-md-3
-              New password
-            .col-md-9
-              = password_field_tag :password, nil, class: "form-control"
+          = label_tag 'New password'
+          = password_field_tag :password, nil, class: "form-control"
       .list-group
         .list-group-item
-          .row
-            .col-md-3
-              Confirm new password
-            .col-md-9
-              = password_field_tag :password_confirmation, nil, class: "form-control"
+          = label_tag 'Confirm new password'
+          = password_field_tag :password_confirmation, nil, class: "form-control"
       .list-group
         .list-group-item
-          .row
-            .col-md-3
-              Time zone
-            .col-md-9
-              = select_tag :time_zone, time_zone_options_for_select(@user.time_zone.time_zone), class: "form-control"
+          = label_tag 'Time zone'
+          = select_tag :time_zone, time_zone_options_for_select(@user.time_zone.time_zone), class: "form-control"
       .list-group
         .list-group-item
-          .row
-            .col-md-3
-              Current password to save changes
-            .col-md-9
-              = password_field_tag :current_password, nil, class: "form-control"
+          = label_tag 'Current password to save changes'
+          = password_field_tag :current_password, nil, class: "form-control"
       .form-group
         = submit_tag "Save changes", class: "btn btn-primary btn-block"
