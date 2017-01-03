@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  belongs_to :time_zone
+  lookup_for :time_zone
   has_many :events
 
   before_save { self.email = email.downcase }

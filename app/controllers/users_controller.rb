@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
   def user_params
     permitted = params.permit(:email, :password, :password_confirmation, :time_zone)
-    permitted[:time_zone_id] = TimeZone.find_by(time_zone: permitted[:time_zone]).id
+    permitted[:time_zone_id] = TimeZone[permitted[:time_zone]].id
     permitted.delete(:time_zone)
     permitted
   end
