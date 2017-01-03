@@ -3,8 +3,9 @@ class SampleData
     def generate
       user = new_user
       user.events.delete_all
-      user.events << new_events(user.time_zone.time_zone)
+      user.events << new_events(user.time_zone)
       user.save!
+      create_tenants(user.id, count)
     end
 
     private
@@ -17,7 +18,15 @@ class SampleData
         email: 'sample@data.com',
         password: '123456',
         password_confirmation: '123456',
-        time_zone_id: TimeZone.find_by_time_zone('Central Time (US & Canada)').id
+        time_zone: 'Central Time (US & Canada)'
+    end
+
+    def create_tenants(user_id, count)
+      return if AppAuthorizationRequest.where(user_id: user_id).any?
+      count.times do
+        tenant = Tenant.create!(access_id: Faker::Lorem.word)
+        AppAuthorizationRequest.create!(tenant_id: tenant.id, user_id: user_id)
+      end
     end
 
     def new_events(time_zone)
@@ -26,8 +35,8 @@ class SampleData
         date = Date.current
         week = (date.beginning_of_week..date.end_of_week).to_a
         week.each do |day|
-          events << new_events_of('all_day', [1, 2].sample, day)
-          events << new_events_of('any_time',[1, 2, 3].sample, day)
+          events << new_events_of(:all_day, [1, 2].sample, day)
+          events << new_events_of(:any_time, [1, 2, 3].sample, day)
           events << new_specific_time_events([3, 4, 5].sample.hours, day)
         end
         events
@@ -36,11 +45,10 @@ class SampleData
 
     def new_events_of(event_type, count, date)
       events = []
-      event_type_id = EventType.find_by_event_type(event_type).id
       count.times do
         events << Event.new(
           title: Faker::Lorem.words.map(&:capitalize).join(' '),
-          event_type_id: event_type_id,
+          event_type: event_type,
           start_time: date.beginning_of_day,
           end_time: date.beginning_of_day
         )
@@ -50,12 +58,11 @@ class SampleData
 
     def new_specific_time_events(interval, date)
       events = []
-      event_type_id = EventType.find_by_event_type('specific_time').id
       current_time = date.beginning_of_day
       while current_time < date.end_of_day
         events << Event.new(
           title: Faker::Lorem.words.map(&:capitalize).join(' '),
-          event_type_id: event_type_id,
+          event_type: :specific_time,
           start_time: current_time,
           end_time: current_time + 1.hour
         )
