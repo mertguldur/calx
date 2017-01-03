@@ -40,6 +40,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
+    api-auth (2.1.0)
     arel (7.1.4)
     bcrypt (3.1.11)
     builder (3.2.2)
@@ -108,6 +109,8 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
+    lookup_by (0.10.9)
+      activerecord (>= 4.0.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
@@ -222,6 +225,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  api-auth
   bcrypt (~> 3.1.7)
   byebug
   coffee-rails (~> 4.2)
@@ -233,6 +237,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  lookup_by
   pg
   pry-rails
   puma (~> 3.0)

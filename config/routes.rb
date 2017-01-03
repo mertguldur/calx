@@ -17,4 +17,17 @@ Rails.application.routes.draw do
   put 'events/:id',    to: 'events#update', as: 'update_event'
   post 'events',       to: 'events#create', as: 'create_event'
   delete 'events/:id', to: 'events#delete', as: 'delete_event'
+
+  get 'apps', to: 'app_authorization_requests#index', as: 'app_authorization_requests'
+  post 'apps', to: 'app_authorization_responses#create', as: 'create_app_authorization_response'
+
+  namespace :api do
+    namespace :v1 do
+      get 'status', to: 'status#index'
+
+      get '/users/:user_id/events', to: 'events#index'
+
+      post 'authorize_app', to: 'app_authorization_requests#create'
+    end
+  end
 end

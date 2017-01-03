@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :events
 
   before_save { self.email = email.downcase }
+  before_create :create_api_id
   before_create :create_remember_digest
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -22,6 +23,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def create_api_id
+    self.api_id = SecureRandom.urlsafe_base64
+  end
 
   def create_remember_digest
     self.remember_digest = User.digest(User.new_remember_token)

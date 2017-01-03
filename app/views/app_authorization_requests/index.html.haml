@@ -1,0 +1,37 @@
+.row
+  .col-md-2.col-md-offset-3
+    %ul.nav.nav-pills.nav-stacked
+      %li.nav-header
+        Settings
+      %li
+        = link_to show_user_path(current_user.id) do
+          %span.icon.icon-briefcase
+          Account
+      %li.active
+        = link_to app_authorization_requests_path do
+          %span.icon.icon-key
+          Apps
+  .col-md-4
+    - if @app_authorization_requests.empty?
+      No apps requested access
+    - else
+      .list-group
+        - @app_authorization_requests.each do |auth_request|
+          .list-group-item
+            - if auth_request.open?
+              %span.pull-right
+                = auth_response_link('Grant access', :grant, auth_request)
+                = " or "
+                = auth_response_link('Block', :block, auth_request)
+              %span.icon.icon-info
+              = auth_request.tenant.access_id
+            - elsif auth_request.last_response_type?(:grant)
+              %span.pull-right
+                = auth_response_link('Revoke access', :revoke, auth_request)
+              %span.icon.icon-check
+              = auth_request.tenant.access_id
+            - else
+              %span.pull-right
+                = auth_response_link('Unblock', :unblock, auth_request)
+              %span.icon.icon-block
+              = auth_request.tenant.access_id
