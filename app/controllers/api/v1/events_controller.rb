@@ -1,6 +1,8 @@
 module Api
   module V1
-    class EventsController < ApplicationController
+    class EventsController < Api::V1::ApplicationController
+      before_action :authenticate_user_access!
+
       def index
         user = User.find_by_api_id(params[:user_id])
         date = params[:date]&.to_date || Date.current

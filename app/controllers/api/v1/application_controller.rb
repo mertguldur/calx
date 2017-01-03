@@ -5,9 +5,18 @@ module Api
 
       protected
 
+      def authenticate_user_access!
+        @tenant = find_tenant
+        head(:unauthorized) unless @tenant.has_access_to_user?(params[:user_id])
+      end
+
       def authenticate_request!
-        @tenant = Tenant.find_by_access_id(ApiAuth.access_id(request))
+        @tenant = find_tenant
         head(:unauthorized) unless @tenant && ApiAuth.authentic?(request, @tenant.secret_key)
+      end
+
+      def find_tenant
+        Tenant.find_by_access_id(ApiAuth.access_id(request))
       end
     end
   end
