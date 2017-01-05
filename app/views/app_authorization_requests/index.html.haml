@@ -23,17 +23,10 @@
             - if auth_request.open?
               %span.pull-right
                 = auth_response_link('Grant access', :grant, auth_request)
-                = " or "
-                = auth_response_link('Block', :block, auth_request)
               %span.icon.icon-info
-              = auth_request.tenant.access_id
-            - elsif auth_request.last_response_type?(:grant)
-              %span.pull-right
-                = auth_response_link('Revoke access', :revoke, auth_request)
-              %span.icon.icon-check
               = auth_request.tenant.access_id
             - else
               %span.pull-right
-                = auth_response_link('Unblock', :unblock, auth_request)
-              %span.icon.icon-block
+                = auth_response_link('Revoke access', :revoke, auth_request)
+              %span.icon.icon-check
               = auth_request.tenant.access_id

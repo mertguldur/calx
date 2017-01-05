@@ -16,7 +16,7 @@ class AppAuthorizationRequest < ApplicationRecord
   end
 
   def open?
-    last_response.nil? || last_response.response_type.in?([:revoke, :unblock])
+    last_response.nil? || last_response_type?(:revoke)
   end
 
   def self.current_requests(user_id)
