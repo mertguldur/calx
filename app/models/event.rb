@@ -1,7 +1,11 @@
 class Event < ApplicationRecord
+  belongs_to :user
   lookup_for :event_type, symbolize: true
 
   before_save :ensure_present_title
+
+  validates :start_time, :end_time, :event_type_id,
+    presence: true
 
   validate :chonological_start_and_end_times
 
@@ -54,6 +58,7 @@ class Event < ApplicationRecord
   end
 
   def chonological_start_and_end_times
+    return unless start_time && end_time
     if specific_time?
       errors.add(:base, "End time must be later than start time") if end_time <= start_time
     else
