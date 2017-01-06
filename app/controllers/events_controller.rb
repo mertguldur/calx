@@ -14,7 +14,8 @@ class EventsController < ApplicationController
   def new
     @now = Time.current
     date = params[:date] || now.to_date
-    @start_date, @end_date = date, date
+    @start_date = date
+    @end_date = date
     @event = Event.new
   end
 
@@ -53,8 +54,9 @@ class EventsController < ApplicationController
     permitted = params.permit \
       :title, :event_type, :start_date, :start_time, :end_date, :end_time, :notes
 
-    if permitted[:event_type].in?(['any_time', 'all_day'])
-      permitted[:start_time], permitted[:end_time] = nil, nil
+    if permitted[:event_type].in?(%w(any_time all_day))
+      permitted[:start_time] = nil
+      permitted[:end_time] = nil
     end
     permitted[:start_time] = combine_date_and_time(permitted[:start_date], permitted[:start_time])
     permitted.delete(:start_date)
@@ -70,7 +72,7 @@ class EventsController < ApplicationController
   end
 
   def combine_date_and_time(date, time = nil)
-    date = Date.strptime(date, "%m/%d/%Y").to_s
+    date = Date.strptime(date, '%m/%d/%Y').to_s
     Time.zone.parse("#{date} #{time}")
   end
 end

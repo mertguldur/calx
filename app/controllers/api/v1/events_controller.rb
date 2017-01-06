@@ -73,7 +73,7 @@ module Api
       end
 
       def parse_time_params(permitted)
-        non_specific_time = permitted[:event_type].in?(['any_time', 'all_day'])
+        non_specific_time = permitted[:event_type].in?(%w(any_time all_day))
         if permitted[:start_time]
           start_time = Time.zone.parse(permitted[:start_time])
           start_time = start_time.beginning_of_day if non_specific_time

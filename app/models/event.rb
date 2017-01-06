@@ -5,11 +5,11 @@ class Event < ApplicationRecord
   before_save :ensure_present_title
 
   validates :start_time, :end_time, :event_type_id,
-    presence: true
+            presence: true
 
   validate :chonological_start_and_end_times
 
-  scope :starts_on, -> (date) { where(start_time: date.beginning_of_day..date.end_of_day) }
+  scope :starts_on, ->(date) { where(start_time: date.beginning_of_day..date.end_of_day) }
   scope :specific_time, -> { by_event_type(:specific_time) }
   scope :any_time, -> { by_event_type(:any_time) }
   scope :all_day, -> { by_event_type(:all_day) }
@@ -60,7 +60,7 @@ class Event < ApplicationRecord
   def chonological_start_and_end_times
     return unless start_time && end_time
     if specific_time?
-      errors.add(:base, "End time must be later than start time") if end_time <= start_time
+      errors.add(:base, 'End time must be later than start time') if end_time <= start_time
     else
       errors.add(:base, "End date can't be earlier than start date") if end_time < start_time
     end
