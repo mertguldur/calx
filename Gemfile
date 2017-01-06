@@ -34,6 +34,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'api-auth'
 gem 'lookup_by'
 
+gem 'coveralls', require: false
 gem 'rubocop', require: false
 
 group :development, :test do
@@ -57,6 +58,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'rspec-expectations'
   gem 'rspec-rails'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

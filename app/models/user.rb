@@ -10,6 +10,9 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+  validates :time_zone, presence: true
+
   has_secure_password
   validates_length_of :password, minimum: 6, allow_blank: true
   validates_presence_of :password, on: :create

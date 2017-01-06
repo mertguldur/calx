@@ -4,6 +4,13 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require 'coveralls'
+Coveralls.wear!
+
+require 'simplecov'
+SimpleCov.start 'rails'
+SimpleCov.minimum_coverage 100
+
 require 'cucumber/rails'
 require 'capybara-screenshot/cucumber'
 

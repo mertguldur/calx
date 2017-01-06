@@ -3,4 +3,12 @@
 
 require_relative 'config/application'
 
-Rails.application.load_tasks
+require 'rubocop/rake_task'
+require 'coveralls/rake/task'
+
+CalX::Application.load_tasks
+RuboCop::RakeTask.new
+Coveralls::RakeTask.new
+
+Rake::Task[:default].prerequisites.clear
+task default: [:rubocop, :spec, :cucumber, 'coveralls:push']

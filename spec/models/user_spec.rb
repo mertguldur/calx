@@ -65,8 +65,8 @@ describe User do
   end
 
   it 'validates the presence of time zone' do
-    user = FactoryGirl.build(:user, time_zone_id: nil)
+    user = FactoryGirl.build(:user, time_zone: nil)
     expect(user.save).to eq(false)
-    expect(user.errors.full_messages.first).to eq('Time zone must exist')
+    expect(user.errors.full_messages.first).to eq("Time zone can't be blank")
   end
 end
