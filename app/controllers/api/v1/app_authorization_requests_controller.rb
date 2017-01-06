@@ -5,13 +5,13 @@ module Api
         user = User.find_by_api_id(params[:user_id])
         unless user
           render json: { errors: [{ title: "User doesn't exist" }] },
-            status: :unprocessable_entity
+                 status: :unprocessable_entity
           return
         end
 
         unless AppAuthorizationRequest.can_create?(@tenant, user)
           render json: { errors: [{ title: "Client can't be authorized for this user" }] },
-            status: :unprocessable_entity
+                 status: :unprocessable_entity
           return
         end
 

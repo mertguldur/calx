@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
@@ -35,6 +34,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'api-auth'
 gem 'lookup_by'
 
+gem 'rubocop', require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -55,6 +56,7 @@ group :test do
   gem 'rspec-rails'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'capybara-screenshot'
   gem 'factory_girl_rails'
   gem 'rspec-expectations'
 end

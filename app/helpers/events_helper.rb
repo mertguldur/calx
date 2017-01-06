@@ -5,7 +5,7 @@ module EventsHelper
     end_time = date.end_of_day
     times = []
     interval = 30.minutes
-    while time < end_time do
+    while time < end_time
       times << format_event_time(time)
       time += interval
     end
@@ -37,11 +37,11 @@ module EventsHelper
   end
 
   def format_event_time(time)
-    time.strftime("%I:%M%P")
+    time.strftime('%I:%M%P')
   end
 
   def event_form_date(event_date, date = nil)
-    (event_date || date.to_date).strftime("%m/%d/%Y")
+    (event_date || date.to_date).strftime('%m/%d/%Y')
   end
 
   def weekdays_of_date(date)

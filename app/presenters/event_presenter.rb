@@ -3,7 +3,7 @@ class EventPresenter
     @event = event
   end
 
-  def as_json(options = {})
+  def as_json(_options = {})
     {
       id: @event.id,
       title: @event.title,
