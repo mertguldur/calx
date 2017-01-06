@@ -5,21 +5,21 @@ class Tenant < ApplicationRecord
 
   validates :access_id, presence: true
 
-  def has_access_to_user?(user_api_id)
+  def access_to_user?(user_api_id)
     AppAuthorizationRequest.find_by_sql(["
       SELECT id FROM
       (
-        SELECT app_authorization_requests.id, app_authorization_response_types.app_authorization_response_type,
-        rank() OVER (PARTITION BY app_authorization_requests.id ORDER BY app_authorization_responses.created_at DESC)
-        FROM app_authorization_requests
-        JOIN app_authorization_responses ON app_authorization_responses.app_authorization_request_id = app_authorization_requests.id
-        JOIN app_authorization_response_types ON app_authorization_responses.app_authorization_response_type_id = app_authorization_response_types.id
-        JOIN users ON users.id = app_authorization_requests.user_id
-        WHERE users.api_id = ?
-        AND app_authorization_requests.tenant_id = ?
+        SELECT req.id, rep_t.app_authorization_response_type,
+        rank() OVER (PARTITION BY req.id ORDER BY rep.created_at DESC)
+        FROM app_authorization_requests req
+        JOIN app_authorization_responses rep
+          ON rep.app_authorization_request_id = req.id
+        JOIN app_authorization_response_types rep_t
+          ON rep.app_authorization_response_type_id = rep_t.id
+        JOIN users u ON u.id = req.user_id
+        WHERE u.api_id = ? AND req.tenant_id = ?
       ) t
-      WHERE rank = 1
-      AND (app_authorization_response_type = ?)
+      WHERE rank = 1 AND (app_authorization_response_type = ?)
    ", user_api_id, id, :grant]).any?
   end
 end

@@ -4,6 +4,7 @@ AllCops:
   - 'config/**/*'
   - 'db/migrate/*'
   - 'db/schema.rb'
+  - 'lib/tasks/cucumber.rake'
   - 'vendor/**/*'
   TargetRubyVersion: 2.3
 
@@ -23,6 +24,9 @@ Style/DotPosition:
   EnforcedStyle: trailing
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/IfInsideElse:
   Enabled: false
 
 Style/RaiseArgs:

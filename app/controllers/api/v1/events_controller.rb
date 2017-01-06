@@ -46,7 +46,7 @@ module Api
           @user = @event&.user
         end
         return head(:not_found) unless @user
-        return head(:unauthorized) unless @tenant.has_access_to_user?(@user.api_id)
+        return head(:unauthorized) unless @tenant.access_to_user?(@user.api_id)
       end
 
       def set_time_zone

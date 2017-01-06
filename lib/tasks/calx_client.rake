@@ -1,11 +1,10 @@
 task calx_client: :environment do
   require 'irb'
   require 'irb/completion'
-  require 'calx_client' # You know what to do.
+  require 'calx_client'
 
   def reload!
-    # Change 'calx_client' here too:
-    files = $LOADED_FEATURES.select { |feat| feat =~ /\/calx_client\// }
+    files = $LOADED_FEATURES.select { |feat| feat =~ %r{\/calx_client\/} }
     files.each { |file| load file }
   end
 
