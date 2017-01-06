@@ -13,7 +13,7 @@ Feature: Sign up
     And I click button "Sign up"
     Then I should be on the calendar page
 
-  Scenario: Server responds with error
+  Scenario: Invalid user value
     When I fill in the sign up form with the following
       | email                 | |
       | password              | 12341234 |

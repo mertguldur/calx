@@ -12,7 +12,7 @@ module UserHelper
   end
 
   def sign_out
-    click_link 'Logout'
+    click_link 'Sign out'
   end
 
   private

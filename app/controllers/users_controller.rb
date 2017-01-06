@@ -24,6 +24,8 @@ class UsersController < ApplicationController
     if @user.authenticate(params[:current_password])
       if @user.update_attributes(user_params)
         flash.now[:success] = 'Changes saved successfully'
+      else
+        @user.reload
       end
     else
       @user.errors.add(:base, 'Invalid current password')

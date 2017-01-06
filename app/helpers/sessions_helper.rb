@@ -22,10 +22,6 @@ module SessionsHelper
       end
   end
 
-  def current_user?(user)
-    user == current_user
-  end
-
   def sign_out
     current_user.update_attribute \
       :remember_digest, User.digest(User.new_remember_token)

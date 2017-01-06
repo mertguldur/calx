@@ -2,6 +2,10 @@ Given(/^I am on the landing page$/) do
   visit root_path
 end
 
+Given(/^I am on the account update page$/) do
+  click_link('Settings')
+end
+
 When(/^I click button "(.*?)"$/) do |text|
   click_button(text)
 end

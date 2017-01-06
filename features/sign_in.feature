@@ -13,7 +13,7 @@ Feature: Sign in
     And I click button "Sign in"
     Then I should be on the calendar page
 
-  Scenario: Server responds with error
+  Scenario: Invalid session value
     When I fill in the sign in form with the following
       | email    | |
       | password | 12341234 |
