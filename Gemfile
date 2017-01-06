@@ -56,9 +56,11 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'poltergeist'
   gem 'rspec-expectations'
   gem 'rspec-rails'
   gem 'simplecov', require: false
+  gem 'timecop'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

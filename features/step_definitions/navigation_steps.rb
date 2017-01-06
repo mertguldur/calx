@@ -6,16 +6,31 @@ Given(/^I am on the account update page$/) do
   click_link('Settings')
 end
 
-When(/^I click button "(.*?)"$/) do |text|
-  click_button(text)
+Given(/^I am on the new event page$/) do
+  visit new_event_path
 end
 
 Given(/^I click link "(.*?)"$/) do |text|
   click_link(text)
 end
 
+When(/^I click button "(.*?)"$/) do |text|
+  click_button(text)
+end
+
 Then(/^I should be on the calendar page$/) do
   expect(page).to have_css('.calendar-date-navigators')
+end
+
+Then(/^I should be on the calendar page on date "(.*?)"$/) do |date|
+  expect(page).to have_css('.calendar-date-navigators')
+  page_date = Date.strptime(find('#calendar-datepicker-input').value, '%m/%d/%Y')
+  given_date = Date.parse(date)
+  expect(page_date).to eq(given_date)
+end
+
+Then(/^I should be on the new event page$/) do
+  expect(page).to have_css('.new-event-form')
 end
 
 Then(/^I should be on the sign in page$/) do
