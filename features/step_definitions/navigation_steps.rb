@@ -41,6 +41,10 @@ Then(/^I should be on the calendar page on date "(.*?)"$/) do |date|
   expect(page_date).to eq(given_date)
 end
 
+Then(/^I should not see an event with title "(.*?)"$/) do |title|
+  expect(page).to_not have_content(title)
+end
+
 Then(/^I should be on the new event page$/) do
   expect(page).to have_css('.new-event-form')
 end
