@@ -15,7 +15,7 @@
     .calendar-month-and-year
       = month_and_year_of_date(@date)
     .calendar-weekdays
-      %a#calendar-week-arrow{href: events_path(date: @date.last_week)}
+      %a#calendar-week-left-arrow{href: events_path(date: @date.last_week)}
         %span.icon.icon-arrow-bold-left
       - weekdays_of_date(@date).each do |date|
         %a{href: events_path(date: date), id: date == @date ? 'calendar-selected-day-link' : 'calendar-day-link'}
@@ -27,7 +27,7 @@
                 = date.day
             - if date == @today
               .orange-color-bar
-      %a#calendar-week-arrow{href: events_path(date: @date.next_week)}
+      %a#calendar-week-right-arrow{href: events_path(date: @date.next_week)}
         %span.icon.icon-arrow-bold-right
     .hr-divider
       %h3.hr-divider-content.hr-divider-heading

@@ -10,7 +10,7 @@ module FormHelper
   end
 
   def event_type_radio_id(event_type)
-    "##{event_type.split(' ').join('-')}-radio"
+    "##{event_type.downcase.split(' ').join('-')}-radio"
   end
 
   def datepicker_value(date)

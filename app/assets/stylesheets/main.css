@@ -52,12 +52,20 @@
   width: 100%;
   height: 3px;
 }
-#calendar-week-arrow {
+#calendar-week-left-arrow {
   font-size: 17px;
   text-decoration: none;
   color: #cfd2da;
 }
-#calendar-week-arrow:hover {
+#calendar-week-left-arrow:hover {
+  color: white;
+}
+#calendar-week-right-arrow {
+  font-size: 17px;
+  text-decoration: none;
+  color: #cfd2da;
+}
+#calendar-week-right-arrow:hover {
   color: white;
 }
 .calendar-datepicker {
