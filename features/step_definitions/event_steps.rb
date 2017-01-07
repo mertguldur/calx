@@ -11,10 +11,15 @@ end
 
 Given(/^I have the following events on "(.*?)"$/) do |date, table|
   table.rows_hash.each do |time, title|
-    event_type = time.downcase.in?(['all day', 'any time']) ? parse_event_type(time) : 'specific_time'
+    event_type =
+      if time.downcase.in?(['all day', 'any time'])
+        parse_event_type(time)
+      else
+        'specific_time'
+      end
     time = event_type == 'specific_time' ? time : '12:00am'
     start_time = parse_start_time(start_date: date, start_time: time)
-    end_time =  start_time + 30.minutes
+    end_time = start_time + 30.minutes
     Event.create! \
       user: @user,
       title: title,

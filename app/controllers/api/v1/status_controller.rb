@@ -1,6 +1,6 @@
 module Api
   module V1
-    class StatusController < ApplicationController
+    class StatusController < Api::V1::ApplicationController
       skip_before_action :authenticate_request!
 
       def index

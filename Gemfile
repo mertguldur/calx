@@ -56,6 +56,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'jsonpath', require: false
   gem 'poltergeist'
   gem 'rspec-expectations'
   gem 'rspec-rails'
