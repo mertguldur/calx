@@ -33,6 +33,12 @@ Feature: Create event
     Then I should be on the new event page
     And I should see the error "End time must be later than start time"
 
-  Scenario: Going back to calendar
+  Scenario: Going back to calendar on today's date
     When I click link "Back to calendar"
     Then I should be on the calendar page on date "2016-12-15"
+
+  Scenario: Going back to calendar on selected date
+    Given I am on the calendar page on date "2017-01-01"
+    And I click link "Add first event"
+    When I click link "Back to calendar"
+    Then I should be on the calendar page on date "2017-01-01"
