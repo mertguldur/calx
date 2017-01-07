@@ -16,6 +16,10 @@ Feature: Account update
       | time_zone             | Central Time (US & Canada) |
       | current_password      | |
 
+  Scenario: Go to apps page
+    When I click link "Apps"
+    Then I should be on the app authorizations page
+
   Scenario: Successful account update
     When I fill in the user form with the following
       | email            | changed@mockmail.com |

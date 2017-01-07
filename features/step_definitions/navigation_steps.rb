@@ -10,12 +10,20 @@ Given(/^I am on the new event page$/) do
   visit new_event_path
 end
 
+Given(/^I am on the apps page$/) do
+  visit app_authorization_requests_path
+end
+
 Given(/^I click link "(.*?)"$/) do |text|
   click_link(text)
 end
 
 Given(/^I am on the calendar page on date "(.*?)"$/) do |date|
   visit events_path(date: date)
+end
+
+When(/^I go to the apps page$/) do
+  visit app_authorization_requests_path
 end
 
 When(/^I go to a nonexistent event page$/) do
@@ -51,6 +59,14 @@ end
 
 Then(/^I should be on the event page$/) do
   expect(page).to have_css('.event-form')
+end
+
+Then(/^I should be on the account information page$/) do
+  expect(page).to have_css('.user-form')
+end
+
+Then(/^I should be on the app authorizations page$/) do
+  expect(page).to have_css('.app-authorizations')
 end
 
 Then(/^I should be on the sign in page$/) do

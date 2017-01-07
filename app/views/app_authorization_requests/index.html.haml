@@ -11,7 +11,7 @@
         = link_to app_authorization_requests_path do
           %span.icon.icon-key
           Apps
-  .col-md-4
+  .col-md-4.app-authorizations
     .m-b
       = "API ID: #{current_user.api_id}"
     - if @app_authorization_requests.empty?

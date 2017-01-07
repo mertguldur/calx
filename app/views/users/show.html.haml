@@ -11,7 +11,7 @@
         = link_to app_authorization_requests_path do
           %span.icon.icon-key
           Apps
-  .col-md-4
+  .col-md-4.user-form
     = form_tag(update_user_path, method: :put) do
       - if flash[:success]
         .alert.alert-success
