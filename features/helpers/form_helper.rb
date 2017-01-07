@@ -9,6 +9,14 @@ module FormHelper
     'a' * size
   end
 
+  def event_type_radio_id(event_type)
+    "##{event_type.split(' ').join('-')}-radio"
+  end
+
+  def datepicker_value(date)
+    Date.parse(date).strftime('%m/%d/%Y')
+  end
+
   private
 
   def email_value(size)

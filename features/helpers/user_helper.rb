@@ -1,15 +1,16 @@
 module UserHelper
   def sign_in(attributes = nil)
     visit root_path
-
     attributes ||= default_attributes
-    user = User.find_by(email: attributes[:email]) ||
-           FactoryGirl.create(:user, attributes)
-
+    user = create_user(attributes)
     fill_in 'session_email', with: attributes[:email]
     fill_in 'session_password', with: attributes[:password]
     click_button('Sign in')
     user
+  end
+
+  def create_user(attributes = {})
+    User.find_by(email: attributes[:email]) || FactoryGirl.create(:user, attributes)
   end
 
   def sign_out
