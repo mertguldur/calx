@@ -24,16 +24,26 @@ end
 When(/^I fill in the event form with the following$/) do |table|
   hash = table.rows_hash
 
-  fill_in 'title', with: hash['title']
-  find(event_type_radio_id(hash['when']), visible: false).trigger('click')
+  fill_in 'title', with: hash['title'] if hash['title'].present?
+  find(event_type_radio_id(hash['when']), visible: false).trigger('click') if hash['when'].present?
 
-  execute_script("$('#start_date').val('#{datepicker_value(hash['start_date'])}')")
-  find('#event-start-time-dropdown').find("option[value='#{hash['start_time']}']").select_option
+  if hash['start_date'].present?
+    execute_script("$('#start_date').val('#{datepicker_value(hash['start_date'])}')")
+  end
 
-  execute_script("$('#end_date').val('#{datepicker_value(hash['end_date'])}')")
-  find('#event-end-time-dropdown').find("option[value='#{hash['end_time']}']").select_option
+  if hash['start_time'].present?
+    find('#event-start-time-dropdown').find("option[value='#{hash['start_time']}']").select_option
+  end
 
-  fill_in 'notes', with: hash['notes']
+  if hash['end_date'].present?
+    execute_script("$('#end_date').val('#{datepicker_value(hash['end_date'])}')")
+  end
+
+  if hash['end_time'].present?
+    find('#event-end-time-dropdown').find("option[value='#{hash['end_time']}']").select_option
+  end
+
+  fill_in 'notes', with: hash['notes'] if hash['notes'].present?
 end
 
 Then(/^I should see the user form with the following$/) do |table|
@@ -61,5 +71,9 @@ Then(/^I should see the event form with the following$/) do |table|
 end
 
 Then(/^I should see the error "(.*?)"$/) do |text|
+  expect(page).to have_content(text)
+end
+
+Then(/^I should see the message "(.*?)"$/) do |text|
   expect(page).to have_content(text)
 end
