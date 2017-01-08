@@ -22,6 +22,7 @@ Then(/^the response status should be "([^"]*)"$/) do |status|
 end
 
 Then(/^the JSON response should be:$/) do |json|
+  json = eval(json).to_json
   expected = JSON.parse(json)
   actual = JSON.parse(last_response.body)
   expect(actual).to eq(expected)

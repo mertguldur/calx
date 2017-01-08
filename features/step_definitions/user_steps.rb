@@ -3,6 +3,11 @@ Given(/^the following user exists$/) do |table|
   @user = FactoryGirl.create(:user, attributes)
 end
 
+Given(/^I have a user with API ID "(.*?)"$/) do |api_id|
+  @user = FactoryGirl.create(:user)
+  @user.update(api_id: api_id)
+end
+
 Given(/^I have signed in$/) do
   @user = sign_in
 end

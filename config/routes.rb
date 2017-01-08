@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'status', to: 'status#index'
 
-      post 'authorize_app', to: 'app_authorization_requests#create'
+      post 'app_authorization_requests', to: 'app_authorization_requests#create'
 
       get '/users/:user_id/events',  to: 'events#index'
       post '/users/:user_id/events', to: 'events#create'
