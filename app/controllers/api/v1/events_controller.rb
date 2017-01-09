@@ -27,7 +27,7 @@ module Api
         if @event.update(update_event_params)
           render json: EventPresenter.new(@event)
         else
-          render json: { errors: @event.errors }, status: :unprocessable_entity
+          render json: { errors: ErrorPresenter.new(@event) }, status: :unprocessable_entity
         end
       end
 
@@ -74,16 +74,18 @@ module Api
 
       def parse_time_params(permitted)
         non_specific_time = permitted[:event_type].in?(%w(any_time all_day))
-        if permitted[:start_time]
-          start_time = Time.zone.parse(permitted[:start_time])
-          start_time = start_time.beginning_of_day if non_specific_time
-          permitted[:start_time] = start_time
+
+        new_start_time = Time.zone.parse(permitted[:start_time]) if permitted[:start_time]
+        new_end_time = Time.zone.parse(permitted[:end_time]) if permitted[:end_time]
+
+        if non_specific_time
+          permitted[:start_time] = (new_start_time || @event.start_time).beginning_of_day
+          permitted[:end_time] = (new_end_time || @event.end_time).beginning_of_day
+        else
+          permitted[:start_time] = new_start_time if new_start_time
+          permitted[:end_time] = new_end_time if new_end_time
         end
-        if permitted[:end_time]
-          end_time = Time.zone.parse(permitted[:end_time])
-          end_time = end_time.beginning_of_day if non_specific_time
-          permitted[:end_time] = end_time
-        end
+
         permitted
       end
     end
