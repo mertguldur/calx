@@ -1,31 +1,35 @@
 Given(/^I have an event with the following attributes$/) do |table|
-  hash = table.rows_hash.symbolize_keys!
-  @event = Event.create! \
-    user: @user,
-    title: hash[:title],
-    event_type: parse_event_type(hash[:when]),
-    start_time: parse_start_time(hash),
-    end_time: parse_end_time(hash),
-    notes: hash[:notes]
+  Time.use_zone(@user.time_zone) do
+    hash = table.rows_hash.symbolize_keys!
+    @event = Event.create! \
+      user: @user,
+      title: hash[:title],
+      event_type: parse_event_type(hash[:when]),
+      start_time: parse_start_time(hash),
+      end_time: parse_end_time(hash),
+      notes: hash[:notes]
+  end
 end
 
 Given(/^I have the following events on "(.*?)"$/) do |date, table|
-  table.rows_hash.each do |time, title|
-    event_type =
-      if time.downcase.in?(['all day', 'any time'])
-        parse_event_type(time)
-      else
-        'specific_time'
-      end
-    time = event_type == 'specific_time' ? time : '12:00am'
-    start_time = parse_start_time(start_date: date, start_time: time)
-    end_time = start_time + 30.minutes
-    Event.create! \
-      user: @user,
-      title: title,
-      event_type: event_type,
-      start_time: start_time,
-      end_time: end_time
+  Time.use_zone(@user.time_zone) do
+    table.rows_hash.each do |time, title|
+      event_type =
+        if time.downcase.in?(['all day', 'any time'])
+          parse_event_type(time)
+        else
+          'specific_time'
+        end
+      time = event_type == 'specific_time' ? time : '12:00am'
+      start_time = parse_start_time(start_date: date, start_time: time)
+      end_time = start_time + 30.minutes
+      Event.create! \
+        user: @user,
+        title: title,
+        event_type: event_type,
+        start_time: start_time,
+        end_time: end_time
+    end
   end
 end
 

@@ -2,7 +2,6 @@ Feature: Create event
 
   Scenario: Successful event update
     Given my tenant "My app" has access to user with API ID "123"
-    And time zone is set to user's time zone
     And I have an event with the following attributes
       | title      | Lunch |
       | when       | specific time |
@@ -28,7 +27,6 @@ Feature: Create event
 
   Scenario: Invalid event value
     Given my tenant "My app" has access to user with API ID "123"
-    And time zone is set to user's time zone
     And I have an event with the following attributes
       | title      | Lunch |
       | when       | specific time |
@@ -47,7 +45,6 @@ Feature: Create event
 
   Scenario: Event doesn't exist
     Given my tenant "My app" has access to user with API ID "123"
-    And time zone is set to user's time zone
     When I send a PUT request to "api/v1/events/1" with the following:
       | event_type | any_time |
     Then the response status should be "404"

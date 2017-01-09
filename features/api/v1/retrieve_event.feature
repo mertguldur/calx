@@ -2,7 +2,6 @@ Feature: Retrieve event
 
   Scenario: Retrieve an existing event
     Given my tenant "My app" has access to user with API ID "123"
-    And time zone is set to user's time zone
     And I have an event with the following attributes
       | title      | Lunch |
       | when       | specific time |
@@ -17,11 +16,11 @@ Feature: Retrieve event
       """
       {
         "id": @event.id,
-        "title": "#{@event.title}",
-        "event_type": "#{@event.event_type}",
-        "start_time": "#{@event.start_time.as_json}",
-        "end_time": "#{@event.end_time.as_json}",
-        "notes": "#{@event.notes}"
+        "title": "Lunch",
+        "event_type": "specific_time",
+        "start_time": "2017-01-01T12:30:00.000-06:00",
+        "end_time": "2017-01-01T13:30:00.000-06:00",
+        "notes": "Business meeting"
       }
       """
   Scenario: Event doesn't exist

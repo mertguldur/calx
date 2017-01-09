@@ -1,10 +1,11 @@
 Given(/^today is "(.*?)"$/) do |date|
-  Time.zone = @user.time_zone if @user
-  Timecop.freeze Time.zone.parse(date)
-end
-
-Given(/^time zone is set to user's time zone$/) do
-  Time.zone = @user.time_zone
+  time =
+    if @user
+      Time.use_zone(@user.time_zone) { Time.zone.parse(date) }
+    else
+      Time.zone.parse(date)
+    end
+  Timecop.freeze(time)
 end
 
 After do
