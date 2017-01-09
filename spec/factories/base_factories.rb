@@ -17,4 +17,8 @@ FactoryGirl.define do
   end
 
   factory :app_authorization_request
+
+  factory :app_authorization_response do
+    app_authorization_response_type AppAuthorizationResponseType[:grant]
+  end
 end

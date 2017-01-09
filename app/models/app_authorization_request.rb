@@ -19,7 +19,7 @@ class AppAuthorizationRequest < ApplicationRecord
     last_response.nil? || last_response_type?(:revoke)
   end
 
-  def self.current_requests(user_id)
+  def self.requests_for(user_id)
     where(user_id: user_id).
       includes(:tenant, :app_authorization_responses)
   end
