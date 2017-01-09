@@ -19,7 +19,7 @@ module Api
         if event.save
           render json: EventPresenter.new(event), status: :created
         else
-          render json: { errors: event.errors }, status: :unprocessable_entity
+          render json: { errors: ErrorPresenter.new(event) }, status: :unprocessable_entity
         end
       end
 

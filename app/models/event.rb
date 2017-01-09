@@ -60,9 +60,9 @@ class Event < ApplicationRecord
   def chonological_start_and_end_times
     return unless start_time && end_time
     if specific_time?
-      errors.add(:base, 'End time must be later than start time') if end_time <= start_time
+      errors.add(:end_time, 'must be later than start time') if end_time <= start_time
     else
-      errors.add(:base, "End date can't be earlier than start date") if end_time < start_time
+      errors.add(:end_time, "can't be earlier than start time") if end_time < start_time
     end
   end
 end

@@ -34,6 +34,10 @@ When(/^another user has an event$/) do
   @other_users_event = FactoryGirl.create(:event, user: user)
 end
 
+When(/^I know my event$/) do
+  @event = @user.events.first
+end
+
 Then(/^I should see the following events on the calendar$/) do |table|
   table.rows_hash.each do |time, title|
     expect(page).to have_content(time)
