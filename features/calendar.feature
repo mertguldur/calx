@@ -12,6 +12,8 @@ Feature: Calendar
     When I click previous week
     When I click previous week
     Then I should see the month name as "December 2016"
+    When I go to the calendar page on date "2016-11-28"
+    Then I should see the month name as "November / December 2016"
 
   Scenario: Viewing a day's event
     Given I have an event with the following attributes

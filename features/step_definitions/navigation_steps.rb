@@ -38,6 +38,10 @@ When(/^I click button "(.*?)"$/) do |text|
   click_button(text)
 end
 
+When(/^I go to the calendar page on date "(.*?)"$/) do |date|
+  visit events_path(date: date)
+end
+
 Then(/^I should be on the calendar page$/) do
   expect(page).to have_css('.calendar-date-navigators')
 end
