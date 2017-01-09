@@ -1,11 +1,7 @@
 require 'rails_helper'
 
 describe AppAuthorizationRequest do
-  subject do
-    create :app_authorization_request,
-           user: create(:user),
-           tenant: create(:tenant)
-  end
+  subject { create(:app_authorization_request) }
 
   describe '#responses' do
     let(:response) do

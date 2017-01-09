@@ -16,9 +16,13 @@ FactoryGirl.define do
     access_id 'foo'
   end
 
-  factory :app_authorization_request
+  factory :app_authorization_request do
+    user
+    tenant
+  end
 
   factory :app_authorization_response do
+    app_authorization_request
     app_authorization_response_type AppAuthorizationResponseType[:grant]
   end
 end
