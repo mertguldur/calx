@@ -3,7 +3,7 @@ class ErrorPresenter
     @object = object
   end
 
-  def as_json(options = {})
+  def as_json(*)
     @object.errors.to_hash.each_with_object([]) do |(id, titles), array|
       titles.each do |title|
         array << { id: id, title: title }

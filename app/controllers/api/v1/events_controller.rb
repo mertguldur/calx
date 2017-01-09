@@ -75,18 +75,17 @@ module Api
       def parse_time_params(permitted)
         non_specific_time = permitted[:event_type].in?(%w(any_time all_day))
 
-        new_start_time = Time.zone.parse(permitted[:start_time]) if permitted[:start_time]
-        new_end_time = Time.zone.parse(permitted[:end_time]) if permitted[:end_time]
+        parse_time(permitted, :start_time, non_specific_time)
+        parse_time(permitted, :end_time, non_specific_time)
+      end
 
+      def parse_time(permitted, key, non_specific_time)
+        new_time = Time.zone.parse(permitted[key]) if permitted[key]
         if non_specific_time
-          permitted[:start_time] = (new_start_time || @event.start_time).beginning_of_day
-          permitted[:end_time] = (new_end_time || @event.end_time).beginning_of_day
+          permitted[key] = (new_time || @event[key]).beginning_of_day
         else
-          permitted[:start_time] = new_start_time if new_start_time
-          permitted[:end_time] = new_end_time if new_end_time
+          permitted[key] = new_time if new_time
         end
-
-        permitted
       end
     end
   end
