@@ -3,6 +3,10 @@ Given(/^today is "(.*?)"$/) do |date|
   Timecop.freeze Time.zone.parse(date)
 end
 
+Given(/^time zone is set to user's time zone$/) do
+  Time.zone = @user.time_zone
+end
+
 After do
   Timecop.return
 end

@@ -4,7 +4,7 @@ require 'jsonpath'
 When(/^I send a (GET|PATCH|POST|PUT|DELETE) request (?:for|to) "([^"]*)"(?: with the following:)?$/) do |*args|
   # rubocop:enable Metrics/LineLength
   request_type = args.shift
-  path = args.shift
+  path = eval("\"#{args.shift}\"")
   input = args.shift
   options = { method: request_type.downcase.to_sym }
   unless input.nil?
