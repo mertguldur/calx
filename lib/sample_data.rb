@@ -5,7 +5,7 @@ class SampleData
       user.events.delete_all
       user.events << new_events(user.time_zone)
       user.save!
-      create_tenants(user.id, count)
+      create_tenants(user.id, 2)
     end
 
     private
