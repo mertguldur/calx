@@ -6,7 +6,7 @@ module Api
 
       def index
         date = params[:date]&.to_date || Date.current
-        events = Event.list_for_date(date, @user)
+        events = Event.on_date(date, @user)
         render json: events.map { |event| EventPresenter.new(event) }
       end
 

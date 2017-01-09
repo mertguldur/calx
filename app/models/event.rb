@@ -14,14 +14,14 @@ class Event < ApplicationRecord
   scope :any_time, -> { by_event_type(:any_time) }
   scope :all_day, -> { by_event_type(:all_day) }
 
-  def self.list_for_date(date, user)
+  def self.on_date(date, user)
     events = where(user_id: user.id).starts_on(date).order(:start_time)
     events.all_day + events.specific_time + events.any_time
   end
 
   def self.upcoming(events, now)
     events.select do |event|
-      event.specific_time? &&
+      event.event_type?(:specific_time) &&
         event.start_date == now.to_date &&
         event.start_time > now
     end.first
@@ -35,16 +35,8 @@ class Event < ApplicationRecord
     end_time&.to_date
   end
 
-  def specific_time?
-    event_type == :specific_time
-  end
-
-  def any_time?
-    event_type == :any_time
-  end
-
-  def all_day?
-    event_type == :all_day
+  def event_type?(event_type)
+    self.event_type == event_type
   end
 
   def self.by_event_type(event_type)
@@ -59,7 +51,7 @@ class Event < ApplicationRecord
 
   def chonological_start_and_end_times
     return unless start_time && end_time
-    if specific_time?
+    if event_type?(:specific_time)
       errors.add(:end_time, 'must be later than start time') if end_time <= start_time
     else
       errors.add(:end_time, "can't be earlier than start time") if end_time < start_time

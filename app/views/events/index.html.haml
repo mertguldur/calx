@@ -43,10 +43,10 @@
             .list-group-progress{style: 'width: 100%;'}
           %span.pull-right
             = event.title
-          - if event.all_day?
+          - if event.event_type?(:all_day)
             %span.event-list-all-day
               All day
-          - elsif event.any_time?
+          - elsif event.event_type?(:any_time)
             %span.event-list-any-time
               Any time
           - else

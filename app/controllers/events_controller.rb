@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     now = Time.current
     @today = now.to_date
     @date = params[:date]&.to_date || @today
-    @events = Event.list_for_date(@date, current_user)
+    @events = Event.on_date(@date, current_user)
     @upcoming_event = Event.upcoming(@events, now)
   end
 
