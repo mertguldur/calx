@@ -16,7 +16,9 @@ FactoryGirl.define do
   end
 
   factory :tenant do
-    access_id 'foo'
+    sequence :access_id do |n|
+      "foo#{n}"
+    end
   end
 
   factory :app_authorization_request do

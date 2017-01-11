@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111102301) do
+ActiveRecord::Schema.define(version: 20170111141903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170111102301) do
 
   create_table "app_authorization_response_types", force: :cascade do |t|
     t.text "app_authorization_response_type", null: false
+    t.index ["app_authorization_response_type"], name: "index_response_types_on_app_authorization_response_type", unique: true, using: :btree
   end
 
   create_table "app_authorization_responses", force: :cascade do |t|
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20170111102301) do
 
   create_table "event_types", force: :cascade do |t|
     t.text "event_type", null: false
+    t.index ["event_type"], name: "index_event_types_on_event_type", unique: true, using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170111102301) do
     t.integer  "user_id",                     null: false
     t.integer  "event_type_id",               null: false
     t.index ["event_type_id"], name: "index_events_on_event_type_id", using: :btree
+    t.index ["start_time"], name: "index_events_on_start_time", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
@@ -57,10 +60,12 @@ ActiveRecord::Schema.define(version: 20170111102301) do
     t.text     "secret_key",             null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["access_id"], name: "index_tenants_on_access_id", unique: true, using: :btree
   end
 
   create_table "time_zones", force: :cascade do |t|
     t.text "time_zone", null: false
+    t.index ["time_zone"], name: "index_time_zones_on_time_zone", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,10 +73,12 @@ ActiveRecord::Schema.define(version: 20170111102301) do
     t.text     "password_digest",             null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.text     "remember_digest"
+    t.text     "remember_digest",             null: false
     t.integer  "time_zone_id",                null: false
     t.text     "api_id",                      null: false
     t.index ["api_id"], name: "index_users_on_api_id", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["remember_digest"], name: "index_users_on_remember_digest", unique: true, using: :btree
     t.index ["time_zone_id"], name: "index_users_on_time_zone_id", using: :btree
   end
 
