@@ -64,9 +64,6 @@ class EventsController < ApplicationController
     permitted[:end_time] = combine_date_and_time(permitted[:end_date], permitted[:end_time])
     permitted.delete(:end_date)
 
-    permitted[:event_type_id] = EventType[permitted[:event_type]].id
-    permitted.delete(:event_type)
-
     permitted[:user_id] = current_user.id
     permitted
   end
