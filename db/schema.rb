@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110082017) do
+ActiveRecord::Schema.define(version: 20170111102301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "app_authorization_requests", force: :cascade do |t|
-    t.integer  "tenant_id"
-    t.integer  "user_id"
+    t.integer  "tenant_id",  null: false
+    t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tenant_id"], name: "index_app_authorization_requests_on_tenant_id", using: :btree
@@ -25,20 +25,20 @@ ActiveRecord::Schema.define(version: 20170110082017) do
   end
 
   create_table "app_authorization_response_types", force: :cascade do |t|
-    t.text "app_authorization_response_type"
+    t.text "app_authorization_response_type", null: false
   end
 
   create_table "app_authorization_responses", force: :cascade do |t|
-    t.integer  "app_authorization_request_id"
+    t.integer  "app_authorization_request_id",       null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.integer  "app_authorization_response_type_id"
+    t.integer  "app_authorization_response_type_id", null: false
     t.index ["app_authorization_request_id"], name: "index_app_authorization_request_id", using: :btree
     t.index ["app_authorization_response_type_id"], name: "app_authorization_response_type_id", using: :btree
   end
 
   create_table "event_types", force: :cascade do |t|
-    t.text "event_type"
+    t.text "event_type", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20170110082017) do
   end
 
   create_table "time_zones", force: :cascade do |t|
-    t.text "time_zone"
+    t.text "time_zone", null: false
   end
 
   create_table "users", force: :cascade do |t|
