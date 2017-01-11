@@ -15,6 +15,7 @@ require 'cucumber/rails'
 require 'capybara-screenshot/cucumber'
 
 require 'cucumber/rspec/doubles'
+require 'factory_girl_rails'
 
 require 'capybara/poltergeist'
 Capybara.javascript_driver = :poltergeist

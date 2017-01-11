@@ -13,9 +13,9 @@ describe User do
   end
 
   it 'validates the length of email' do
-    user = build(:user, email: 'a' * 256)
+    user = build(:user, email: 'a' * 501)
     expect(user.save).to eq(false)
-    expect(user.errors.full_messages.first).to eq('Email is too long (maximum is 255 characters)')
+    expect(user.errors.full_messages.first).to eq('Email is too long (maximum is 500 characters)')
   end
 
   it 'validates the format of email' do

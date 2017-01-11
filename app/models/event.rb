@@ -7,6 +7,9 @@ class Event < ApplicationRecord
   validates :start_time, :end_time, :event_type_id,
             presence: true
 
+  validates_length_of :title, maximum: 500
+  validates_length_of :notes, maximum: 10_000
+
   validate :chonological_start_and_end_times
 
   scope :starts_on, ->(date) { where(start_time: date.beginning_of_day..date.end_of_day) }

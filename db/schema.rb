@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105152653) do
+ActiveRecord::Schema.define(version: 20170110082017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,21 +42,21 @@ ActiveRecord::Schema.define(version: 20170105152653) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.text     "title"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.text     "notes"
-    t.integer  "user_id"
-    t.integer  "event_type_id"
+    t.string   "title",         limit: 500,   null: false
+    t.datetime "start_time",                  null: false
+    t.datetime "end_time",                    null: false
+    t.string   "notes",         limit: 10000
+    t.integer  "user_id",                     null: false
+    t.integer  "event_type_id",               null: false
     t.index ["event_type_id"], name: "index_events_on_event_type_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
   create_table "tenants", force: :cascade do |t|
-    t.text     "access_id"
-    t.text     "secret_key"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "access_id",  limit: 500, null: false
+    t.text     "secret_key",             null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "time_zones", force: :cascade do |t|
@@ -64,13 +64,13 @@ ActiveRecord::Schema.define(version: 20170105152653) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text     "email"
-    t.text     "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "email",           limit: 500, null: false
+    t.text     "password_digest",             null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.text     "remember_digest"
-    t.integer  "time_zone_id"
-    t.text     "api_id",          null: false
+    t.integer  "time_zone_id",                null: false
+    t.text     "api_id",                      null: false
     t.index ["api_id"], name: "index_users_on_api_id", unique: true, using: :btree
     t.index ["time_zone_id"], name: "index_users_on_time_zone_id", using: :btree
   end

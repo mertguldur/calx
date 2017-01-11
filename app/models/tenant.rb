@@ -3,7 +3,7 @@ class Tenant < ApplicationRecord
 
   before_create { self.secret_key = ApiAuth.generate_secret_key }
 
-  validates :access_id, presence: true
+  validates :access_id, presence: true, length: { maximum: 500 }
 
   def access_to_user?(user_api_id)
     AppAuthorizationRequest.find_by_sql(["

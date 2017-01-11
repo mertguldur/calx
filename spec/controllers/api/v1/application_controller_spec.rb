@@ -22,7 +22,7 @@ describe Api::V1::ApplicationController do
       end
     end
 
-    context "tenant is missing" do
+    context 'tenant is missing' do
       before do
         allow(ApiAuth).to receive(:access_id) { 'bar' }
       end
@@ -33,7 +33,7 @@ describe Api::V1::ApplicationController do
       end
     end
 
-    context "tenant is not authenticated" do
+    context 'tenant is not authenticated' do
       before do
         allow(ApiAuth).to receive(:access_id) { 'foo' }
         allow(ApiAuth).to receive(:authentic?) { false }

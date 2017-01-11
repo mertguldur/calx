@@ -7,10 +7,18 @@ describe Tenant do
     expect(subject.secret_key).to be_present
   end
 
+  it 'creates a tenant' do
+    expect(build(:tenant).save).to eq(true)
+  end
+
   it 'validates the presence of access id' do
     tenant = build(:tenant, access_id: nil)
     expect(tenant.save).to eq(false)
-    expect(tenant.errors.full_messages.first).to eq("Access can't be blank")
+  end
+
+  it 'validates the maximum length of access id' do
+    tenant = build(:tenant, access_id: 'a' * 501)
+    expect(tenant.save).to eq(false)
   end
 
   describe 'access_to_user?' do

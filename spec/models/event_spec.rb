@@ -3,6 +3,10 @@ require 'rails_helper'
 describe Event do
   subject { create(:event) }
 
+  it 'creates an event' do
+    expect(build(:event).save).to eq(true)
+  end
+
   it 'overrides blank title upon save' do
     event = create(:event, title: nil)
     expect(event.title).to eq('Untitled')
@@ -20,6 +24,16 @@ describe Event do
 
   it 'validates the presence of event type' do
     event = build(:event, event_type: nil)
+    expect(event.save).to eq(false)
+  end
+
+  it 'validates the maximum length of title' do
+    event = build(:event, title: 'a' * 501)
+    expect(event.save).to eq(false)
+  end
+
+  it 'validates the maximum length of title' do
+    event = build(:event, notes: 'a' * 10_001)
     expect(event.save).to eq(false)
   end
 
@@ -114,7 +128,10 @@ describe Event do
     let(:today) { Date.current }
     let(:now) { today + 12.hours }
     let!(:upcoming) do
-      create :event, event_type: :specific_time, start_time: today + 18.hours
+      create(:event,
+             event_type: :specific_time,
+             start_time: today + 18.hours,
+             end_time: today + 19.hours)
     end
 
     let(:events) do
