@@ -1,0 +1,10 @@
+language: ruby
+cache: bundler
+env:
+  - RAILS_ENV=test
+before_script:
+  - bundle exec rake db:create db:migrate
+script:
+  - bundle exec rake
+rvm:
+  - 2.3.3
