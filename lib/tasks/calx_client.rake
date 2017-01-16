@@ -8,9 +8,9 @@ task calx_client: :environment do
     files.each { |file| load file }
   end
 
-  def start_client
+  def start_client(tenant)
     reload!
-    tenant = Tenant.first
+    tenant ||= Tenant.first
     CalX::Client.new(tenant.access_id, tenant.secret_key)
   end
 
