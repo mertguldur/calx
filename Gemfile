@@ -42,6 +42,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'faker'
   gem 'pry-rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -59,7 +60,6 @@ group :test do
   gem 'jsonpath', require: false
   gem 'poltergeist'
   gem 'rspec-expectations'
-  gem 'rspec-rails'
   gem 'simplecov', require: false
   gem 'timecop'
 end
