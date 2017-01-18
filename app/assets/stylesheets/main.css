@@ -95,3 +95,15 @@
 .event-list-any-time {
   color: #9f86ff;
 }
+
+@media (max-width: 467px) {
+  .calendar-day {
+    width: 24px;
+  }
+  .calendar-day-name {
+    font-size: 11px;
+  }
+  .calendar-weekday {
+    font-size: 23px;
+  }
+}
