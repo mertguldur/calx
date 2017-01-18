@@ -2,7 +2,7 @@ class SampleData
   class << self
     def generate
       user = new_user
-      user.events.delete_all
+      user.events.destroy_all
       user.events << new_events(user.time_zone)
       user.save!
       create_tenants(user.id, 2)
