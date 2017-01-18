@@ -24,7 +24,7 @@ class SampleData
     def create_tenants(user_id, count)
       return if AppAuthorizationRequest.where(user_id: user_id).any?
       count.times do
-        tenant = Tenant.create!(access_id: Faker::Lorem.word)
+        tenant = Tenant.create!(access_id: SecureRandom.urlsafe_base64)
         AppAuthorizationRequest.create!(tenant_id: tenant.id, user_id: user_id)
       end
     end
