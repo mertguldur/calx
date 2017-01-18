@@ -1,34 +1,10 @@
 .row
   .col-md-6.col-md-offset-3
-    .form-inline.calendar-date-navigators
-      .calendar-today-button.form-group
-        = link_to 'Today', events_path(date: @today), class: 'btn btn-primary-outline'
-        %a#hidden-date-change-button{hidden: true}
-      .calendar-datepicker.form-group
-        .input-group
-          %span.input-group-addon
-            %span.icon.icon-calendar
-          %input.form-control{"data-provide" => "datepicker", :style => "width: 200px;", :type => "text", :value => @date.strftime("%m/%d/%Y"), id: 'calendar-datepicker-input'}
+    = render 'calendar_navigators'
     .hr-divider
       %h3.hr-divider-content.hr-divider-heading
         Week
-    .calendar-month-and-year
-      = month_and_year_of_date(@date)
-    .calendar-weekdays
-      %a#calendar-week-left-arrow{href: events_path(date: @date.last_week)}
-        %span.icon.icon-arrow-bold-left
-      - weekdays_of_date(@date).each do |date|
-        %a{href: events_path(date: date), id: date == @date ? 'calendar-selected-day-link' : 'calendar-day-link'}
-          .calendar-day
-            .calendar-day-name
-              = abbr_day_name(date)
-            .calendar-day-number
-              %span.calendar-weekday
-                = date.day
-            - if date == @today
-              .orange-color-bar
-      %a#calendar-week-right-arrow{href: events_path(date: @date.next_week)}
-        %span.icon.icon-arrow-bold-right
+    = render 'calendar_week'
     .hr-divider
       %h3.hr-divider-content.hr-divider-heading
         To do

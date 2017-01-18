@@ -1,0 +1,9 @@
+.row.calendar-date-navigators
+  .calendar-today-button-container.col-xs-4.col-md-5
+    = link_to 'Today', events_path(date: @today), class: 'btn btn-primary-outline'
+    %a#hidden-date-change-button{hidden: true}
+  .col-xs-8.col-md-7
+    .input-group
+      %span.input-group-addon
+        %span.icon.icon-calendar
+      %input.form-control{"data-provide" => "datepicker", style: "width: 150px;", type: "text", value: @date.strftime("%m/%d/%Y"), id: 'calendar-datepicker-input'}

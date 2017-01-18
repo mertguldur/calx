@@ -68,15 +68,10 @@
 #calendar-week-right-arrow:hover {
   color: white;
 }
-.calendar-datepicker {
-  display: inline;
-}
-.calendar-today-button {
-  display: inline;
-  margin-right: 20px;
+.calendar-today-button-container {
+  text-align: right;
 }
 .calendar-date-navigators {
-  text-align: center;
   margin-bottom: 20px;
 }
 .back-to-calendar {
