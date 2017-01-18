@@ -1,16 +1,6 @@
 .row
   .col-md-2.col-md-offset-3
-    %ul.nav.nav-pills.nav-stacked
-      %li.nav-header
-        Settings
-      %li.active
-        = link_to show_user_path do
-          %span.icon.icon-briefcase
-          Account
-      %li
-        = link_to app_authorization_requests_path do
-          %span.icon.icon-key
-          Apps
+    = render partial: 'shared/settings_menu', locals: { active_menu_item: 'account' }
   .col-md-4.user-form
     = form_tag(update_user_path, method: :put) do
       - if flash[:success]

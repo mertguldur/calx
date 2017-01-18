@@ -1,16 +1,6 @@
 .row
   .col-md-2.col-md-offset-3
-    %ul.nav.nav-pills.nav-stacked
-      %li.nav-header
-        Settings
-      %li
-        = link_to show_user_path(current_user.id) do
-          %span.icon.icon-briefcase
-          Account
-      %li.active
-        = link_to app_authorization_requests_path do
-          %span.icon.icon-key
-          Apps
+    = render partial: 'shared/settings_menu', locals: { active_menu_item: 'apps' }
   .col-md-4.app-authorizations
     .m-b
       = "API ID: #{current_user.api_id}"

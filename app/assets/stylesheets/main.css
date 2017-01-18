@@ -95,6 +95,9 @@
 .event-list-any-time {
   color: #9f86ff;
 }
+.settings-menu {
+  margin-bottom: 30px;
+}
 
 @media (max-width: 467px) {
   .calendar-day {

@@ -1,0 +1,12 @@
+.settings-menu
+  %ul.nav.nav-pills.nav-stacked
+    %li.nav-header
+      Settings
+    %li{class: active_menu_item == 'account' ? 'active' : ''}
+      = link_to show_user_path(current_user.id) do
+        %span.icon.icon-briefcase
+        Account
+    %li{class: active_menu_item == 'apps' ? 'active' : ''}
+      = link_to app_authorization_requests_path do
+        %span.icon.icon-key
+        Apps
